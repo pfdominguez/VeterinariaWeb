@@ -1,0 +1,59 @@
+﻿@model VeterinariaWeb.Model.Pacient
+
+@if(@Model==null || @Model.IdPaciente==0 ){
+    <h2>Ingresar Nuevo Paciente</h2>
+}
+else{
+    <h2>Modificar el Paciente Id: <span>@Model.IdPaciente</span> </h2>
+}
+<form method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <input type="text" asp-for="@Model.IdPaciente" placeholder="Ingresar ID"/>
+        <span asp-validation-for="@Model.IdPaciente" class="badge badge-danger" ></span>
+    </div>
+    <div class="form-group">
+        <input type="text" asp-for="@Model.NombrePaciente" placeholder="Ingresar Nombre"/>
+        <span asp-validation-for="@Model.NombrePaciente" class="badge badge-danger" ></span>
+    </div>
+    <div class="form-group">
+        <input type="text" asp-for="@Model.Apellido"  placeholder="Ingresar Apellido"/>
+        <span asp-validation-for="@Model.Apellido" class="badge badge-danger" ></span>
+    </div>
+    <div class="form-group">
+        <input type="text" asp-for="@Model.NombreDueno"  placeholder="Ingresar Nombre del Dueño"/>
+        <span asp-validation-for="@Model.NombreDueno" class="badge badge-danger" ></span>
+    </div>
+     <div class="form-group">
+        <input type="text" asp-for="@Model.ClaseAnimal"  placeholder="Ingresar Clase Animal"/>
+        <span asp-validation-for="@Model.ClaseAnimal" class="badge badge-danger" ></span>
+    </div>
+    <div class="form-group">
+        @Html.DropDownList("TipoAnimal_idAnimal",(IEnumerable<SelectListItem>)ViewData["Animales"] )
+    </div>
+    <div class="form-group">
+        <input type="date" asp-for="@Model.FechaNacimiento" />
+        <span asp-validation-for="@Model.FechaNacimiento" class="badge badge-danger" ></span>
+    </div>     
+    <div class="form-group">
+        <input type="checkbox" asp-for="@Model.Atendido" /> ¿Atendido?
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input type="radio" asp-for="@Model.TipoAtencion" value="1" /> Consulta
+        </div>
+        <div class="form-check">
+            <input type="radio" asp-for="@Model.TipoAtencion" value="2" /> Rx
+        </div>
+        <div class="form-check">
+            <input type="radio" asp-for="@Model.TipoAtencion" value="3" /> Peluqueria
+        </div>     
+    </div>
+     
+    
+     
+
+    <input type="submit" class="btn btn-primary" onclick="return confirm('Esta seguro que quiere Guarda los Cambios?')"  value="Grabar"/>
+    <a asp-page="Listado" class="btn btn-secondary" onclick="return confirm('Esta seguro de cancelar la edicion?')" >Volver</a>
+    </form>
+

@@ -1,0 +1,51 @@
+﻿@page
+@inject VeterinariaWeb.Servicios.InterfacePaciente Paciserv
+@model VeterinariaWeb.Pages.Shared.ListaPacientesModel
+@{
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>idPaciente</th>
+            <th>NombrePaciente</th>
+            <th>Apellido</th>
+            <th>Tipo</th>
+            <th>Dueño</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var paci in Paciserv.MostrarTodos())
+         {
+            <tr>
+                <td>@paci.IdPaciente</td>
+                <td>@paci.NombrePaciente</td>
+                <td>@paci.Apellido</td>
+                <td>@paci.ClaseAnimal</td>
+                <td>@paci.NombreDueno</td>
+
+            </tr>
+
+
+
+         }
+
+
+    </tbody>
+
+</table>
+
+
+
+<form method="post">
+    <h2>Formulario Paciente</h2>
+    <input type="text" placeholder="Ingresar Id" asp-for="@Model.pacientes1.IdPaciente" />
+    <input type="text" placeholder="Ingresar Nombre" asp-for="@Model.pacientes1.NombrePaciente" />
+    <input type="text" placeholder="Ingresar Apellido" asp-for="@Model.pacientes1.Apellido" />
+    <input type="text" placeholder="Ingresar Tipo" asp-for="@Model.pacientes1.ClaseAnimal" />
+    <input type="text" placeholder="Ingresar Dueño" asp-for="@Model.pacientes1.NombreDueno" />
+    
+    <input type="submit" value="Guardar Paciente"/>
+
+
+</form>

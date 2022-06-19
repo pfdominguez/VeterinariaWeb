@@ -1,0 +1,108 @@
+﻿@model List<VeterinariaWeb.Model.Pacient>
+@using Microsoft.AspNetCore.Html;
+@{
+}
+@functions{
+    void MostrarFecha(DateTime dt){
+        <span class="date">@dt.ToString("dddd, dd MMMM yyyy")   </span>;
+    }
+   
+    void MostrarAtendido(bool Atendido){
+        if(Atendido){
+            <span>SI</span>;
+        }
+        else{
+            <span>NO</span>;
+        }
+      
+    }
+
+    void MostrarTipoAtencion(int tipo){
+        var TipoAtencion="";
+        if(tipo==1){
+            TipoAtencion="Consulta";
+        }
+        else if(tipo==2){
+            TipoAtencion="RX";
+        }
+        else{
+            TipoAtencion="Peluqueria";
+        }
+        <span>@TipoAtencion</span>;
+    }
+      void MostrarAtencion2(int tipo){
+         
+        if(tipo==1){
+            <span class="badge badge-danger">Consulta</span>;
+        }
+        else if(tipo==2){
+                <span class="badge badge-warning">Rx</span>;
+        }
+        else{
+                <span class="badge badge-success">Peluqueria</span>;
+        }
+         
+    }
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                <a asp-page="./Listado" asp-route-orden="PorId">IdPaciente</a>
+            </th>
+            <th>
+                <a asp-page="./Listado" asp-route-orden="PorNombre">Nombre</a>
+            </th>
+            <th>
+                <a asp-page="./Listado" asp-route-orden="PorApellido">Apellido</a>
+            </th>
+            <th>
+                Nombre Dueño
+            </th>
+            <th>
+                <a asp-page="./Listado" asp-route-orden="PorClaseAnimal">Clase Animal </a> 
+                </th>
+            
+            <th>
+                <a asp-page="./Listado" asp-route-orden="PorTipoAtencion">TipoAtencion </a>
+            </th>
+            <th>
+                <a asp-page="./Listado" asp-route-orden="PorAtendido">Recepcionado </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var paci in Model)
+        {
+            <tr>
+                <td>
+                    
+                    <img src="~/img/png-transparent-computer-icons-scalable-graphics-avatar-emoticon-animal-fox-jungle-safari-zoo-icon-animals-orange-dog-like-mammal.png" class="rounded-circl" style="width:50px;height:50px;" />
+               
+                </td>
+                    <td>@paci.IdPaciente</td>
+                    <td>@paci.NombrePaciente</td>
+                    <td>@paci.Apellido</td>
+                    <td>@paci.NombreDueno</td>
+                    <td>@paci.ClaseAnimal</td>
+                    <td>@{MostrarAtencion2(paci.TipoAtencion);}</td>
+                    <Td>@{MostrarAtendido(paci.Atendido);}</Td>
+                    <td>
+                        <a asp-page="./Editar" class="btn btn-light" asp-route-id="@paci.IdPaciente">Editar</a>
+                        |
+                        <a asp-page="./Listado" class="btn btn-danger" asp-page-handler="Borrar"
+                        onclick="return confirm('Esta seguro que quiere eliminar al Paciente?')"
+                        asp-route-idborrar="@paci.IdPaciente">Eliminar</a>
+                    </td>
+                 
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    MostrarFecha(DateTime.Now);
+}
